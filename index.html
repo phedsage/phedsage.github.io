@@ -3,61 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SAGE SEARCH ENGINE</title>
+  <title>SAGE Material List Search</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
   <style>
-    .code-box {
-      cursor: pointer;
-    }
-    .material-name {
-      flex-grow: 1;
-      margin-right: 10px;
-    }
-    .list-group-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    footer {
-      margin-top: 3rem;
-      padding: 1.5rem 0;
-      background-color: #f8f9fa;
-      border-top: 1px solid #dee2e6;
-    }
-    .footer-content {
-      text-align: center;
-      color: #6c757d;
-    }
-    .designer-name {
-      font-weight: 600;
-      color: #495057;
-    }
-    .container {
-      min-height: calc(100vh - 120px);
-    }
-  </style>
+  /*
+  *** STICKY FOOTER CSS IMPLEMENTATION ***
+  1. Set min-height to 100vh and use flex column on body.
+  2. Use flex-shrink-0 on the main content wrapper (or main).
+  3. Use mt-auto on the footer.
+  */
+  body {
+    background: linear-gradient(135deg, #0056b3, #4dabf7);
+    /* min-height: 100vh; is crucial for the sticky footer to work */
+    min-height: 100vh; 
+    padding: 40px 0;
+    backdrop-filter: blur(4px);
+  }
+
+  /* Your existing styles... */
+  .glass-box {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .code-box {
+    cursor: pointer;
+    font-weight: 600;
+    color: #ffffff !important; /* WHITE TEXT */
+  }
+
+  .code-box:hover {
+    text-decoration: underline;
+  }
+
+  .material-name {
+    flex-grow: 1;
+    margin-right: 10px;
+    font-weight: 500;
+  }
+
+  .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px !important;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(6px);
+  }
+
+  /* Custom link hover for the dark footer theme */
+  .footer-link:hover {
+    color: white !important; 
+    text-decoration: underline !important;
+  }
+
+  /* Original footer style removed as it interferes with new structure */
+  /* footer {
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+    text-align: center;
+    color: white;
+  }
+
+  .designer-name {
+    font-weight: 700;
+    color: #e3f2ff;
+  } */
+</style>
 </head>
-<body class="p-4 bg-light">
-  <div class="container">
-    <h2 class="mb-4">SAGE MATERIAL LIST SEARCH</h2>
 
-    <div class="mb-3">
-      <input id="searchInput" type="text" class="form-control" placeholder="Search material name or code..." />
-      <small class="text-muted">Search by material name or code. Click on code to copy.</small>
-    </div>
+<body class="d-flex flex-column min-vh-100">
 
-    <div id="searchStats" class="mb-2 text-muted"></div>
-    
-    <ul id="resultList" class="list-group"></ul>
-  </div>
-	
-	<footer class="mt-auto">
-    <div class="container">
-      <div class="footer-content">
-        <p class="mb-0">Designed by <span class="designer-name">Obot Akpan</span></p>
+  <main class="flex-shrink-0">
+    <div class="container col-md-8 glass-box">
+      <h2 class="mb-4 text-white text-center">SAGE MATERIAL LIST SEARCH</h2>
+
+      <div class="mb-3">
+        <input
+          id="searchInput"
+          type="text"
+          class="form-control"
+          placeholder="Search material name or code..."
+        />
+        <small class="text-light">Search by material name or code. Click on code to copy.</small>
       </div>
+
+      <div id="searchStats" class="mb-2 text-white"></div>
+
+      <ul id="resultList" class="list-group"></ul>
     </div>
-  </footer>
+  </main>
+<footer class="mt-auto py-4 bg-footer-green text-white">
+	<hr>
+        <div class="container">
+            <div class="row justify-content-center"> 
+                <div class="col-md-5 offset-md-1 col-12 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-1 small text-white-50">
+                        &copy; <span id="currentYear"></span>. All rights reserved.
+                    </p>
+                    <p class="mb-0 small text-white-50">
+                        Designed by <span class="fw-semibold text-white">Obot Akpan</span>
+                    </p>
+                </div>
+
+                <div class="col-md-5 col-12 text-center">
+                    <h5 class="fw-bold mb-2 small text-white-50" style="font-size: 0.9rem;">Other Apps</h5>
+                    <ul class="list-unstyled d-flex justify-content-center gap-4">
+                        <li>
+                            <a href="https://phedcalculator.github.io" target="_blank" class="text-white text-decoration-none small footer-link">
+                                PHED Calculator
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://phednetwork.github.io" target="_blank" class="text-white text-decoration-none small footer-link">
+                                PHED Network
+                            </a>
+                        </li>
+						
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+<script>
+  // Script to automatically update the copyright year
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
 
   <script>
     // Updated material dataset
